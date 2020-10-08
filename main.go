@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
@@ -50,8 +51,8 @@ func togleLamp(control bool) bool {
 }
 
 func main() {
-	//port := os.Getenv("PORT")
-	port := "8080"
+	port := os.Getenv("PORT")
+	//port := "8080"
 	r := mux.NewRouter()
 
 	headers := handlers.AllowedHeaders([]string{
