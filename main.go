@@ -1,7 +1,7 @@
 package main
 
 import (
-	"encoding/json"
+	"controliot-ws/controller"
 	"log"
 	"net/http"
 	"os"
@@ -9,46 +9,6 @@ import (
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
-
-var tmpControl = false
-
-func setOn(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	Data := make(map[string]interface{})
-	Data["message"] = "Lampu On"
-	Data["status"] = true
-	Data["data"] = togleLamp(true)
-	json.NewEncoder(w).Encode(Data)
-}
-
-func setOff(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	Data := make(map[string]interface{})
-	Data["message"] = "Lampu Off"
-	Data["status"] = true
-	Data["data"] = togleLamp(false)
-	json.NewEncoder(w).Encode(Data)
-}
-
-func getStatus(w http.ResponseWriter, r *http.Request) {
-	w.Header().Set("Content-Type", "application/json")
-	Data := make(map[string]interface{})
-	if tmpControl == true {
-		Data["message"] = "Lampu On"
-		Data["status"] = true
-		Data["data"] = tmpControl
-	} else {
-		Data["message"] = "Lampu Off"
-		Data["status"] = true
-		Data["data"] = tmpControl
-	}
-	json.NewEncoder(w).Encode(Data)
-}
-
-func togleLamp(control bool) bool {
-	tmpControl = control
-	return tmpControl
-}
 
 func main() {
 	port := os.Getenv("PORT")
@@ -61,9 +21,12 @@ func main() {
 	origins := handlers.AllowedOrigins([]string{"*"})
 	methods := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS", "DELETE"})
 
-	r.HandleFunc("/on", setOn).Methods("GET")
-	r.HandleFunc("/off", setOff).Methods("GET")
-	r.HandleFunc("/status", getStatus).Methods("GET")
+	r.HandleFunc("/on/1", controller.SetOn1).Methods("GET")
+	r.HandleFunc("/off/1", controller.SetOff1).Methods("GET")
+	r.HandleFunc("/on/2", controller.SetOn2).Methods("GET")
+	r.HandleFunc("/off/2", controller.SetOff2).Methods("GET")
+	r.HandleFunc("/status/1", controller.GetStatus1).Methods("GET")
+	r.HandleFunc("/status/2", controller.GetStatus2).Methods("GET")
 
 	log.Println("API STARTED!")
 	log.Println(port)
