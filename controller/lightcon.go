@@ -17,7 +17,7 @@ var TmpControl2 = false
 // SetOn1 = Setting On
 func SetOn1(w http.ResponseWriter, r *http.Request) {
 	db := config.GetClient()
-	log.Println("Connected")
+	//log.Println("Connected")
 	w.Header().Set("Content-Type", "application/json")
 	//var ret int
 	_ = TogleLamp(true, 1)

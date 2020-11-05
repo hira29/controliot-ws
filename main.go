@@ -27,6 +27,7 @@ func main() {
 	r.HandleFunc("/off/2", controller.SetOff2).Methods("GET")
 	r.HandleFunc("/status/1", controller.GetStatus1).Methods("GET")
 	r.HandleFunc("/status/2", controller.GetStatus2).Methods("GET")
+	r.HandleFunc("/sensor/{dataSensor}", controller.SensorSet).Methods("GET")
 
 	log.Println("API STARTED!")
 	log.Println(port)
