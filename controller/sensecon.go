@@ -3,8 +3,11 @@ package controller
 import (
 	"controliot-ws/config"
 	"controliot-ws/dao"
+	"controliot-ws/model"
 	"encoding/json"
+
 	"github.com/gorilla/mux"
+
 	//"log"
 	"net/http"
 )
@@ -15,4 +18,13 @@ func SensorSet(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
 	json.NewEncoder(w).Encode(dao.SensorLog(params["dataSensor"], db))
+}
+
+//GetSenseLog = Getting Log
+func GetSenseLog(w http.ResponseWriter, r *http.Request) {
+	db := config.GetClient()
+	var inputRequest model.RequestLog
+	w.Header().Set("Content-Type", "application/json")
+	json.NewDecoder(r.Body).Decode(&inputRequest)
+	json.NewEncoder(w).Encode(dao.GetSenseLog(inputRequest, db))
 }
