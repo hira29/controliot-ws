@@ -4,14 +4,15 @@ import (
 	"controliot-ws/controller"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 )
 
 func main() {
-	//port := os.Getenv("PORT")
-	port := "8080"
+	port := os.Getenv("PORT")
+	//port := "8080"
 	r := mux.NewRouter()
 
 	headers := handlers.AllowedHeaders([]string{
