@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"context"
 	"controliot-ws/config"
 	"controliot-ws/dao"
 	"controliot-ws/model"
@@ -24,6 +25,7 @@ func SetOn1(w http.ResponseWriter, r *http.Request) {
 	//var ret int32
 	_ = TogleLamp(true, 1)
 	json.NewEncoder(w).Encode(dao.SetOn(1, db))
+	defer db.Disconnect(context.Background())
 }
 
 // SetOff1 = Controlling Off
@@ -33,6 +35,7 @@ func SetOff1(w http.ResponseWriter, r *http.Request) {
 	//var ret int32
 	_ = TogleLamp(false, 1)
 	json.NewEncoder(w).Encode(dao.SetOff(1, db))
+	defer db.Disconnect(context.Background())
 }
 
 // SetOn2 = Setting On
@@ -42,6 +45,7 @@ func SetOn2(w http.ResponseWriter, r *http.Request) {
 	//var ret int32
 	_ = TogleLamp(true, 2)
 	json.NewEncoder(w).Encode(dao.SetOn(2, db))
+	defer db.Disconnect(context.Background())
 }
 
 // SetOff2 = Controlling Off
@@ -51,6 +55,7 @@ func SetOff2(w http.ResponseWriter, r *http.Request) {
 	//var ret int32
 	_ = TogleLamp(false, 2)
 	json.NewEncoder(w).Encode(dao.SetOff(2, db))
+	defer db.Disconnect(context.Background())
 }
 
 //GetLightLog = Getting Log
@@ -60,6 +65,7 @@ func GetLightLog(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	json.NewDecoder(r.Body).Decode(&inputRequest)
 	json.NewEncoder(w).Encode(dao.GetLightLog(inputRequest, db))
+	defer db.Disconnect(context.Background())
 }
 
 //GetStatus1 = Getting Status
