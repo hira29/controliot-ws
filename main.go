@@ -21,7 +21,7 @@ func main() {
 	origins := handlers.AllowedOrigins([]string{"*"})
 	methods := handlers.AllowedMethods([]string{"GET", "HEAD", "POST", "PUT", "OPTIONS", "DELETE"})
 
-	r.HandleFunc("/check/test/api", controller.Test).Methods("GET")
+	r.HandleFunc("/check/test", controller.Test).Methods("GET")
 	r.HandleFunc("/on/1", controller.SetOn1).Methods("GET")
 	r.HandleFunc("/off/1", controller.SetOff1).Methods("GET")
 	r.HandleFunc("/on/2", controller.SetOn2).Methods("GET")
