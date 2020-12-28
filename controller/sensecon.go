@@ -18,7 +18,7 @@ func SensorSet(w http.ResponseWriter, r *http.Request) {
 	db := config.GetClient()
 	w.Header().Set("Content-Type", "application/json")
 	params := mux.Vars(r)
-	json.NewEncoder(w).Encode(dao.SensorLog(params["dataSensor"], db))
+	json.NewEncoder(w).Encode(dao.SensorLog(params["dataSensor"], params["numSensor"], db))
 	defer db.Disconnect(context.Background())
 }
 

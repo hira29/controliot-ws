@@ -81,7 +81,7 @@ func SetOff(led int32, db *mongo.Client) model.ReturnData {
 	return model.ReturnData{Status: status, Data: data, Message: message}
 }
 
-func SensorLog(data string, db *mongo.Client) model.ReturnData {
+func SensorLog(data string, num string, db *mongo.Client) model.ReturnData {
 	var status bool
 	var message string
 	var returndata interface{}
@@ -97,7 +97,7 @@ func SensorLog(data string, db *mongo.Client) model.ReturnData {
 		now := time.Now()
 		now.Format(time.RFC3339)
 		sense.ID = function.ToMd5(time.Now().String())
-		sense.Sense = "US"
+		sense.Sense = "US" + num
 		sense.Data = dataSensor
 		sense.Time = now
 
